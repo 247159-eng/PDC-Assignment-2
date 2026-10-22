@@ -31,6 +31,10 @@ public class RequestQueue {
         return '\0';
     }
 
+    public int getSize() {
+        return size;
+    }
+    
     public boolean isEmpty() {
         return size == 0;
     }
