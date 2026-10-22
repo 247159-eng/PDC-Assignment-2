@@ -4,4 +4,24 @@ public class ParallelMinSearch extends SensorSearchEngine implements Runnable {
     public ParallelMinSearch(double[] sensorData, int startIdx, int endIdx) {
         super(sensorData, startIdx, endIdx);
     }
+
+    @Override
+    public double processGrid() {
+        double localMin = Double.MAX_VALUE;
+        for (int i = startIdx; i < endIdx; i++) {
+            if (sensorData[i] < localMin) {
+                localMin = sensorData[i];
+            }
+        }
+        return localMin;
+    }
+
+    @Override
+    public void run() {
+        this.minValue = processGrid();
+    }
+
+    public double getMinValue() {
+        return minValue;
+    }
 }
