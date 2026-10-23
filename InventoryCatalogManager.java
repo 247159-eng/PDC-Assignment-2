@@ -50,6 +50,19 @@ public class InventoryCatalogManager {
     }
 
     public static void main(String[] args) {
-        System.out.println("=== Inventory Catalog Concurrency Benchmark ===");
+        try {
+            System.out.println("=== Inventory Catalog Concurrency Benchmark ===");
+            System.out.println("Threads: " + NUM_THREADS + " | Updates per Thread: " + UPDATES_PER_THREAD);
+
+            double syncTime = testSynchronizedMap();
+            double concTime = testConcurrentHashMap();
+
+            System.out.println("\n--- Performance Results ---");
+            System.out.println("Collections.synchronizedMap Time : " + String.format("%.3f", syncTime) + " ms");
+            System.out.println("ConcurrentHashMap Time           : " + String.format("%.3f", concTime) + " ms");
+            System.out.println("Speedup Ratio                    : " + String.format("%.2fx", (syncTime / concTime)));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
