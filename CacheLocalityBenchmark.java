@@ -20,5 +20,9 @@ public class CacheLocalityBenchmark {
         long endCol = System.nanoTime();
         double colTimeMs = (endCol - startCol) / 1e6;
         System.out.println("Column-Major Traversal (Strided) Time  : " + String.format("%.3f", colTimeMs) + " ms | Sum: " + String.format("%.2f", colSum));
+
+        double slowdownRatio = colTimeMs / rowTimeMs;
+        System.out.println("\n--- Cache Locality Evaluation ---");
+        System.out.println("Cache Performance Penalty (Slowdown Ratio): " + String.format("%.2fx", slowdownRatio));
     }
 }
