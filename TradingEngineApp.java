@@ -1,16 +1,18 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class TradingEngineApp {
     public static void main(String[] args) {
-        System.out.println("=== CEP Engine Market Event Dispatcher ===");
+        List<TradeEvent> eventQueue = new ArrayList<>();
 
-        // Polymorphic assignment: Superclass references holding subclass instances
-        TradeEvent fixOrder = new FIXOrderEvent("FIX_GATEWAY_01", System.currentTimeMillis(), 2500.50, "ORD_1001");
-        TradeEvent reutersQuote = new ReutersQuoteEvent("REUTERS_FEED_02", System.currentTimeMillis(), 2500.50, 2498.00, 2502.50);
+        eventQueue.add(new FIXOrderEvent("EVT-101", "ORD_8921", 500));
+        eventQueue.add(new ReutersQuoteEvent("EVT-102", "AAPL", 175.50));
+        eventQueue.add(new FIXOrderEvent("EVT-103", "ORD_8922", 1200));
 
-        // Runtime dynamic method overriding
-        System.out.println("\n--- Dispatching FIX Order Event ---");
-        fixOrder.dispatch();
-
-        System.out.println("\n--- Dispatching Reuters Quote Event ---");
-        reutersQuote.dispatch();
+        System.out.println("=== Financial CEP Engine Execution Log ===");
+        for (TradeEvent event : eventQueue) {
+            System.out.print("[Time: " + event.getTimestamp() + "] ");
+            event.processEvent();
+        }
     }
 }
