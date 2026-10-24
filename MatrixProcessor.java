@@ -37,4 +37,10 @@ public class MatrixProcessor {
         }
         return sum;
     }
+    public int getRows() {
+        return rows;
+    }
+    public int getCols() {
+        return cols;
+    }
 }
